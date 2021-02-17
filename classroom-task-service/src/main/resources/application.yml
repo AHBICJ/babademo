@@ -1,0 +1,18 @@
+server:
+  port: 6001
+spring:
+  application:
+    name: classroom-task-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
