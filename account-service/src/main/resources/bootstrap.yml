@@ -7,3 +7,22 @@ spring:
         server-addr: 127.0.0.1:8848
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:8080
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: ${spring.application.name}-degrade-rules
+            data-type: json
+            rule-type: degrade
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 6000
+        readTimeout: 2000
+  sentinel:
+    enabled: true

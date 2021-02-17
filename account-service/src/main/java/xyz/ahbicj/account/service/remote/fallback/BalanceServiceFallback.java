@@ -1,7 +1,8 @@
-package xyz.ahbicj.account.service.remote;
+package xyz.ahbicj.account.service.remote.fallback;
 
 import org.springframework.stereotype.Component;
 import xyz.ahbicj.account.entity.Balance;
+import xyz.ahbicj.account.service.remote.BalanceService;
 
 @Component
 public class BalanceServiceFallback implements BalanceService {

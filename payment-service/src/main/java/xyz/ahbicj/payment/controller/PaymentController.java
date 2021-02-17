@@ -1,5 +1,7 @@
 package xyz.ahbicj.payment.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ public class PaymentController {
     };
 
     @RequestMapping("/pay/balance")
+    @SentinelResource(value = "protected-resource", blockHandler = "handleBlock")
     public Balance getBalance(Integer id) {
         System.out.println("request: /pay/balance?id=" + id + ", sleep: " + sleep);
         if (sleep > 0) {
@@ -39,4 +42,9 @@ public class PaymentController {
         }
         return new Balance(0, 0, 0);
     }
+
+    public Balance handleBlock(Integer id, BlockException e) {
+        return new Balance(0, 0, 0, "限流");
+    }
+
 }
